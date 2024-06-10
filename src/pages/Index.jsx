@@ -1,17 +1,40 @@
-// Update this page (the content is just a fallback if you fail and example)
-// Use chakra-ui
-import { Container, Text, VStack } from "@chakra-ui/react";
-
-// Example of using react-icons
-// import { FaRocket } from "react-icons/fa";
-// <IconButton aria-label="Add" icon={<FaRocket />} size="lg" />; // IconButton would also have to be imported from chakra
+import { useState } from "react";
+import { Container, VStack, Input, Button, Image, Text, Box, Heading, Flex } from "@chakra-ui/react";
 
 const Index = () => {
+  const [prompt, setPrompt] = useState("");
+  const [imageSrc, setImageSrc] = useState("");
+
+  const handleGenerateImage = () => {
+    // Mocking backend image generation
+    setImageSrc("https://via.placeholder.com/500");
+  };
+
   return (
-    <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-      <VStack spacing={4}>
-        <Text fontSize="2xl">Your Blank Canvas</Text>
-        <Text>Chat with the agent to start making edits.</Text>
+    <Container maxW="container.xl" p={4}>
+      <Flex as="nav" w="100%" p={4} bg="blue.500" color="white" justifyContent="center">
+        <Heading as="h1" size="lg">Image Generation App</Heading>
+      </Flex>
+      <VStack spacing={8} mt={8} align="center">
+        <Input
+          placeholder="Enter your prompt"
+          size="lg"
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+        />
+        <Button colorScheme="blue" size="lg" onClick={handleGenerateImage}>
+          Generate Image
+        </Button>
+        {imageSrc && (
+          <Box boxSize="500px" border="1px" borderColor="gray.200">
+            <Image src={imageSrc} alt="Generated" boxSize="100%" objectFit="cover" />
+          </Box>
+        )}
+        {!imageSrc && (
+          <Box boxSize="500px" border="1px" borderColor="gray.200" display="flex" alignItems="center" justifyContent="center">
+            <Text color="gray.500">Your generated image will appear here</Text>
+          </Box>
+        )}
       </VStack>
     </Container>
   );
